@@ -1,4 +1,5 @@
 import Booking from "../models/Booking.js";
+import { notifyTelegram } from "../utils/telegram.js";
 
 /**
  * Create new booking (public)
@@ -20,6 +21,7 @@ export const createBooking = async (req, res, next) => {
 
     // TODO: notify admin/dispatcher via webhook / WhatsApp / SMS
     // Example: push to a dispatch queue.
+    await notifyTelegram(booking);
 
     res.status(201).json({ success: true, bookingId: booking._id });
   } catch (err) {
